@@ -1,0 +1,42 @@
+#include<stdio.h> 
+  
+void swap(int* a, int* b) { 
+    int tmp = *a; 
+    *a = *b; 
+    *b = tmp; 
+} 
+  
+int partition (int arr[], int start, int end) { 
+    int pivot = arr[end]; 
+    int x = (start - 1); 
+    for (int i=start; i <= end-1; i++) {  
+        if (arr[i] < pivot) { 
+            x++;     
+            swap(&arr[x], &arr[i]); 
+        } 
+    } 
+    swap(&arr[x + 1], &arr[end]); 
+    return (x + 1); 
+} 
+  
+void quickSort(int arr[], int start, int end) { 
+    if (start < end) { 
+        int pivot = partition(arr, start, end); 
+        quickSort(arr, start, pivot - 1); 
+        quickSort(arr, pivot + 1, end); 
+    } 
+} 
+
+void printArray(int arr[], int size) { 
+    for (int i=0; i < size; i++) 
+        printf("%d ", arr[i]); 
+} 
+ 
+int main() 
+{ 
+    int arr[] = {10, 7, 8, 9, 1, 5}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    quickSort(arr, 0, n-1);
+    printArray(arr, n); 
+    return 0; 
+}
