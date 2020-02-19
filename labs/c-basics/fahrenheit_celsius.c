@@ -1,3 +1,4 @@
+#include<stdlib.h>
 #include <stdio.h>
 
 #define   LOWER  0       /* lower limit of table */
@@ -6,12 +7,17 @@
 
 /* print Fahrenheit-Celsius table */
 
-int main()
-{
-    int fahr;
+int main(int argc, char **argv){
 
-    for (fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
-	printf("Fahrenheit: %3d, Celcius: %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    int fahr = atoi(argv[1]);
+    if(argv[2] != NULL && argv[3] != NULL){
+    	for (fahr = atoi(argv[1]); fahr <= atoi(argv[2]); fahr = fahr + atoi(argv[3]))
+    	printf("Fahrenheit: %3d, Celcius: %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    }
 
+    else{
+    	printf("Fahrenheit: %3d, Celcius: %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
+    }
     return 0;
 }
+
