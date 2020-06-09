@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body{
+			margin: 0;
+		}
+		canvas{
+			display: block;
+			background: blue;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="mycanvas"></canvas>
+	<script src="pixi-legacy.js"></script>
+	<script type="text/javascript">
+		const canvas = document.getElementById('mycanvas');
+		const app = new PIXI.Application({
+			view: canvas,
+			width: window.innerWidth,
+			height: window.innerHeight
+		});
+
+
+		const texture = PIXI.Texture.from('car2.png');
+		const img = new PIXI.Sprite(texture);
+		img.x = app.renderer.width / 2;
+		img.y = app.renderer.height / 2;
+		img.anchor.x = 0.5;
+		img.anchor.y = 0.5;
+		app.stage.addChild(img);
+
+		app.ticker.add(animate);
+		function animate(){
+			//img.translate(0.1, 0.1);
+		}
+
+		const style = new PIXI.TextStyle({
+    		fontFamily: 'Arial',
+    		fontSize: 80,
+    		fontStyle: 'italic',
+    		fontWeight: 'bold',
+    		fill: ['#ffffff', '#57c2f5'], // gradient
+    		stroke: '#4a1850',
+    		strokeThickness: 5,
+    		dropShadow: true,
+    		dropShadowColor: '#000000',
+    		dropShadowBlur: 4,
+    		dropShadowAngle: Math.PI / 6,
+    		dropShadowDistance: 6,
+    		wordWrap: true,
+    		wordWrapWidth: 440,
+		});
+
+		const richText = new PIXI.Text('City Traffic Simulator', style);
+		richText.x = app.renderer.width / 2;
+		richText.anchor.x = 0.5;
+		richText.y = 50;
+
+		app.stage.addChild(richText);
+
+		app.ticker.speed = 0.1;
+
+		
+		//coordinate between 1 and 9
+		var coordinatesX = [4, 5, 6, 7, 7]
+		var coordinatesY = [7, 7, 7, 7, 6]
+		var positionX = 5 //car is in the middle of the screen
+		var positionY = 1 //car is in the top of the screen
+		var count = 0
+
+		const btn = PIXI.Sprite.from('next.png')
+		btn.anchor.set(0.5);
+		btn.x = app.screen.width / 2;
+		btn.y = 900;
+		btn.interactive=true;
+		btn.buttonMode=true;
+		btn.on('pointerdown', onClick);
+		app.stage.addChild(btn);
+
+		function onClick(){
+			var Xvalue = coordinatesX[count]
+			var Yvalue = coordinatesY[count]
+			movementX = Xvalue - positionX
+			movementY = Yvalue - positionY
+
+			//moving in X
+			if(movementX < 0){
+				img.x = img.x - (-100*movementX);
+				positionX = Xvalue;
+				console.log("mov neg");
+			}
+			if(movementX > 0){
+				img.x += (100*movementX);
+				positionX = Xvalue;
+				console.log("mov pos");
+			}
+
+			//moving in Y
+			if(movementY < 0){
+				img.y = img.y - (-50*movementY);
+				positionY = Yvalue;
+				console.log("mov neg");
+			}
+			if(movementY > 0){
+				img.y += (50*movementY);
+				positionY = Yvalue;
+				console.log("mov pos");
+			}
+			count++;
+		}
+
+			
+			
+			
+
+	</script>
+
+</body>
+</html>
